@@ -14,12 +14,23 @@ import numpy as np
 textures = []
 filename1 = "Pac-Man.bmp"
 
+controlMatrix = [20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18,
+                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                 11,0,24,0,18,0,19,0,22,0,17,0,20,0,23,0,11,
+                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                 12,0,0,0,0,0,20,0,21,0,18,0,0,0,0,0,12,
+                 24,0,23,0,0,0,0,0,0,0,0,0,0,0,24,0,23,
+                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                 0,0,11,0,24,0,17,0,0,0,19,0,23,0,11,0,0,
+                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                 0,0,12,0,24,0,18,0,0,0,20,0,23,0,12,0,0]
+
 class Pacman:
     
     def __init__(self, dim, vel): #position,direction,map (csv)
         
         self.DimBoard = dim
-        #Se inicializa una posicion aleatoria en el tablero
+        #Se inicializa una posicion 0,0 en el tablero
         self.Position = [50,1,42]
         #Se inicializa un vector de direccion aleatorio
         self.Direction = [0,0,0]
@@ -30,6 +41,34 @@ class Pacman:
         self.Direction[0] *= vel
         self.Direction[2] *= vel
 
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                
+            elif event.type == pygame.K_UP:     
+            elif event.type == pygame.K_LEFT:
+            elif event.type == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT:
+                    if theta > 359.0:
+                        theta = 0
+                    else:
+                        theta += 1.0
+                    lookat()
+                if event.key == pygame.K_LEFT:
+                    if theta < 1.0:
+                        theta = 360.0
+                    else:
+                        theta += -1.0
+                    lookat()
+                if event.key == pygame.K_ESCAPE:
+                    done = True
+
+        display()
+
+    pygame.display.flip()
+    pygame.time.wait(5)
+    
     def update(self):
             new_x = self.Position[0] + self.Direction[0]
             new_z = self.Position[2] + self.Direction[2]
