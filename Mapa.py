@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from Pacman import Pacman
 
 # Cargamos las bibliotecas de OpenGL
 from OpenGL.GL import *
@@ -16,20 +17,20 @@ from Ghost import Ghost
 screen_width = 500
 screen_height = 500
 #vc para el obser.
-FOVY=60.0
-ZNEAR=0.01
-ZFAR=900.0
+FOVY=39.0
+ZNEAR=1.0
+ZFAR=1000.0
 #Variables para definir la posicion del observador
 #gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
-EYE_X = 300.0
-EYE_Y = 200.0
-EYE_Z = 300.0
-CENTER_X = 0
-CENTER_Y = 0
-CENTER_Z = 0
+EYE_X = 90.0
+EYE_Y = 250.0
+EYE_Z = 90.0
+CENTER_X = 92.0
+CENTER_Y = 0.0
+CENTER_Z = 92.0
 UP_X=0
-UP_Y=1
-UP_Z=0
+UP_Y=0
+UP_Z=1
 #Variables para dibujar los ejes del sistema
 X_MIN=-500
 X_MAX=500
@@ -77,15 +78,15 @@ def Texturas(filepath):
     textures.append(glGenTextures(1))
     id = len(textures) - 1
     glBindTexture(GL_TEXTURE_2D, textures[id])
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_CLAMP)
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_CLAMP)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     image = pygame.image.load(filepath).convert()
     w, h = image.get_rect().size
-    image_data = pygame.image.tostring(image,"RGBA")
+    image_data = pygame.image.tostring(image, "RGBA")
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
-    glGenerateMipmap(GL_TEXTURE_2D) 
+    glGenerateMipmap(GL_TEXTURE_2D)
 
 def Init():
     screen = pygame.display.set_mode(
