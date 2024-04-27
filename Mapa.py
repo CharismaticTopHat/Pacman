@@ -45,6 +45,10 @@ DimBoard = 200
 theta = 0.0
 radius = 300
 
+#Carga del CSV
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+CSV_FILE = os.path.join(BASE_PATH, 'mapa pacman.csv')
+
 #Arreglo para el manejo de texturas
 textures = []
 filename1 = "Pac-Man_map.bmp"

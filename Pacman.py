@@ -9,10 +9,6 @@ from OpenGL.GLUT import *
 import math
 import numpy as np
 
-#Carga del CSV
-BASE_PATH = os.path.abspath(os.path.dirname(__file__))
-CSV_FILE = os.path.join(BASE_PATH, 'mapa pacman.csv')
-
 #Arreglo para el manejo de texturas
 textures = []
 filename1 = "Pac-Man.bmp"
