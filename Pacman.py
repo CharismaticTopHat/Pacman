@@ -6,9 +6,12 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-import random
 import math
 import numpy as np
+
+#Carga del CSV
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+CSV_FILE = os.path.join(BASE_PATH, 'mapa pacman.csv')
 
 #Arreglo para el manejo de texturas
 textures = []
@@ -33,12 +36,11 @@ controlMatrix = [20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18,
                  19,0,21,0,0,0,21,13,0,14,21,0,0,0,21,0,17]
 
 class Pacman:
-    
     def __init__(self, dim, vel): #position,direction,map (csv)
         
         self.DimBoard = dim
         #Se inicializa una posicion 0,0 en el tablero
-        self.Position = [50,1,42]
+        self.Position = [25,1,25]
         #Se inicializa un vector de direccion aleatorio
         self.Direction = [0,0,0]
         #Se normaliza el vector de direccion
