@@ -13,6 +13,7 @@ import math
 import sys
 sys.path.append('..')
 from Ghost import Ghost
+from Pacman import Pacman
 
 screen_width = 500
 screen_height = 500
@@ -51,8 +52,8 @@ CSV_FILE = os.path.join(BASE_PATH, 'mapa pacman.csv')
 
 #Arreglo para el manejo de texturas
 textures = []
-filename1 = "Pac-Man_map.bmp"
-filename2 = "Pac-Man.bmp"
+filename1 = "PacMan_map.bmp"
+filename2 = "PacMan.bmp"
 pygame.init()
 
 def Axis():
@@ -156,7 +157,7 @@ def display():
     #Plano()
     PlanoTexturizado()
     #pc.draw()
-    Pacman.draw()
+    Pacman.draw(Pacman.self, 'PacMan.bmp',1)
     #for g in ghosts:
     #    g.draw()
     #    g.update2(pc.position)
@@ -165,24 +166,16 @@ done = False
 Init()
 while not done:
     for event in pygame.event.get():
-        #if event.type == pygame.QUIT:
-        #    done = True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                if theta > 359.0:
-                    theta = 0
-                else:
-                    theta += 1.0
-                lookat()
-            if event.key == pygame.K_LEFT:
-                if theta < 1.0:
-                    theta = 360.0
-                else:
-                    theta += -1.0
-                lookat()
-            if event.key == pygame.K_ESCAPE:
-                done = True
-
+            if event.type == pygame.KEYDOWN:
+                if event.type == pygame.K_UP: 
+                    direction = 0 
+                elif event.type == pygame.K_RIGHT:
+                    direction = 1
+                elif event.type == pygame.K_DOWN:
+                    direction = 2
+                elif event.type == pygame.K_LEFT:
+                    direction = 3
+    
     display()
 
     pygame.display.flip()
