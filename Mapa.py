@@ -156,6 +156,7 @@ def display():
     #Plano()
     PlanoTexturizado()
     #pc.draw()
+    Pacman.draw()
     #for g in ghosts:
     #    g.draw()
     #    g.update2(pc.position)
