@@ -115,8 +115,14 @@ def Init():
 
     global pacman
     pacman = Pacman(filename2)
-    global ghost
-    ghost = Ghost()
+    global ghosts, randomGhost1, randomGhost2, randomGhost3
+    ghosts = []
+    randomGhost1 = Ghost([166, 1, 167], 0, 0)
+    randomGhost2 = Ghost([166, 1, 14], 0, 400)
+    randomGhost3 = Ghost([15, 1, 14], 400, 400)
+    ghosts.append(randomGhost1)
+    ghosts.append(randomGhost2)
+    ghosts.append(randomGhost3)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -165,11 +171,9 @@ def display():
     PlanoTexturizado()
     #pc.draw()
     pacman.draw(direction)
-    ghost.draw()
-    ghost.update()
-    #for g in ghosts:
-    #    g.draw()
-    #    g.update2(pc.position)
+    for ghost in ghosts:
+        ghost.draw()
+        ghost.update()
     
 done = False
 Init()

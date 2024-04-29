@@ -35,10 +35,10 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
 import random
 
 class Ghost:
-    def __init__(self):
-        self.Xindex = 0
-        self.Zindex = 0
-        self.position = [166, 1, 167]
+    def __init__(self, position, Xindex, Zindex):
+        self.Xindex = Xindex
+        self.Zindex = Zindex
+        self.position = position
         self.actualX = Xpx[self.Xindex]
         self.actualZ = Zpx[self.Zindex]
         self.direction = [0, 0, 0]  # Dirección inicial
@@ -58,6 +58,8 @@ class Ghost:
         # Si el contador alcanza 25 píxeles, cambia la dirección
         if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
+            print(self.actualZ)
+            print(self.actualX)
             print(valor)
             print(self.direction)
 
