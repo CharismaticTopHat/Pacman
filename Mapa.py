@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from Pacman import Pacman
 
 # Cargamos las bibliotecas de OpenGL
 from OpenGL.GL import *
@@ -56,8 +55,6 @@ filename1 = "PacMan_map.bmp"
 filename2 = "PacMan.bmp"
 pygame.init()
 
-pacman = Pacman('PacMan.bmp')
-
 def Axis():
     glShadeModel(GL_FLAT)
     glLineWidth(3.0)
@@ -96,8 +93,8 @@ def Texturas(filepath):
     glGenerateMipmap(GL_TEXTURE_2D)
 
 def Init():
-    screen = pygame.display.set_mode(
-        (screen_width, screen_height), DOUBLEBUF | OPENGL)
+    pygame.init()
+    screen = pygame.display.set_mode((screen_width, screen_height), DOUBLEBUF | OPENGL)
     pygame.display.set_caption("Pac-Man")
 
     glMatrixMode(GL_PROJECTION)
@@ -112,6 +109,9 @@ def Init():
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
     
     Texturas(filename1)
+
+    global pacman
+    pacman = Pacman('PacMan.bmp')
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -166,7 +166,7 @@ def display():
     
 done = False
 Init()
-direction = 1
+direction = 0
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

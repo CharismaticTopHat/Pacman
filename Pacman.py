@@ -33,14 +33,12 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
 
 class Pacman:
         
-    def __init__(self, sprite_filepath): 
-        #Se carga el Sprite de PacMan
-        self.sprite= pygame.image.load(sprite_filepath)
+    def __init__(self, image_path):
         #Se declara la posición de inicio en pixeles en los ejes X y Z
         self.posX=0
         self.posY=0
         #Se inicializa una posicion 0,0 en el tablero
-        self.initialPosition = [25,1,25]
+        self.initialPosition = [44,1,27]
         #Velocidad en los 3 ejes
         self.Direction=[]
         self.Direction.append(1)
@@ -64,6 +62,8 @@ class Pacman:
         #Se cambia la maginitud del vector direccion
         self.Direction[0] *= self.speed
         self.Direction[2] *= self.speed
+        #Se carga la textura de Pacman
+        self.sprite = self.load_texture(image_path)
     
     def availableMoves(self):
         if controlMatrix[self.posX][self.posY] == 0:
@@ -126,13 +126,36 @@ class Pacman:
             rotation_angle = 90
         elif direction == 3:  
             rotation_angle = 180
-        pygame.transform.rotate(self.sprite, rotation_angle)
+        #pygame.transform.rotate(self.sprite, rotation_angle)
+        glEnable(GL_TEXTURE_2D)
+        glBindTexture(GL_TEXTURE_2D, self.sprite)  # Use the texture ID from load_texture
         glPushMatrix()
         glTranslatef(self.initialPosition[0], self.initialPosition[1], self.initialPosition[2])
         glRotatef(rotation_angle, 0, 0, 1)  # Rota en torno al eje Z
         glScaled(1, 1, 1) # Cambio de escala en caso de ser necesatio
-        glBindTexture(GL_TEXTURE_2D, 2)
         glBegin(GL_QUADS)
+        # Adjusted to draw the texture in the xz plane with y fixed for height.
+        size = 8  # The size of the Pac-Man texture in the world space
+        x = 0  # Fixed y coordinate since Pac-Man is on the ground
+        glTexCoord2f(0, 0); glVertex3f(x, self.initialPosition[0], self.initialPosition[2])
+        glTexCoord2f(1, 0); glVertex3f(x, self.initialPosition[0] + size, self.initialPosition[2])
+        glTexCoord2f(1, 1); glVertex3f(x, self.initialPosition[0] + size, self.initialPosition[2] + size)
+        glTexCoord2f(0, 1); glVertex3f(x, self.initialPosition[0], self.initialPosition[2] + size)
         glEnd()
         glDisable(GL_TEXTURE_2D)
         glPopMatrix()
+
+    @staticmethod
+    def load_texture(image_path):
+        image = pygame.image.load(image_path)
+        image_data = pygame.image.tostring(image, "RGBA", 1)
+        width, height = image.get_size()
+
+        texture_id = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
+
+        return texture_id
+
