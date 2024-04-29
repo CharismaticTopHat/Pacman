@@ -57,10 +57,69 @@ class Ghost:
     def update(self):
         # Si el contador alcanza 25 píxeles, cambia la dirección
         if self.distance_counter >= 25:
-            print(self.actualX)
-            print(self.actualZ)
+            valor = controlMatrix[self.actualZ][self.actualX]
+            print(valor)
+            print(self.direction)
+
+            if valor == 11:
+                directions = [[0, 0, 1]]
+            elif valor == 12:
+                directions = [[0, 0, -1]]
+            elif valor == 13:
+                directions = [[1, 0, 0]]
+            elif valor == 14:
+                directions = [[-1, 0, 0]]
+            elif valor == 15:
+                directions = [[0, 0, -1], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 16:
+                directions = [[-1, 0, 0], [1, 0, 0]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 17:
+                directions = [[1, 0, 0], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 18:
+                directions = [[1, 0, 0], [0, 0, -1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 19:
+                directions = [[-1, 0, 0], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 20:
+                directions = [[-1, 0, 0], [0, 0, -1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 21:
+                directions = [[-1, 0, 0], [1, 0, 0], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 22:
+                directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 23:
+                directions = [[1, 0, 0], [0, 0, -1], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 24:
+                directions = [[-1, 0, 0], [0, 0, -1], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 25:
+                directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            elif valor == 26:
+                directions = []
+                if self.direction in directions:
+                    directions.remove(self.direction)
+            else:
+                directions = [self.direction]
             # Direcciones posibles: DERECHA, IZQUIERDA, ABAJO, ARRIBA
-            directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]
             # Seleccionar una dirección aleatoria
             self.direction = random.choice(directions)
             # Reiniciar el contador
@@ -86,13 +145,9 @@ class Ghost:
                 print("abajo")
                 self.Zindex += 25
                 self.actualZ = Zpx[self.Zindex]
-
-            print(self.actualX)
-            print(self.actualZ)
-
         # Actualizar la posición del fantasma según la dirección y la velocidad
-        self.position[0] += self.direction[0]
-        self.position[2] += self.direction[2]
+        self.position[0] += self.direction[0]/3
+        self.position[2] += self.direction[2]/3
         self.distance_counter += 1
 
 
