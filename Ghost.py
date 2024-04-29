@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 
-# Cargamos las bibliotecas de OpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
@@ -10,84 +9,93 @@ import random
 import math
 import numpy as np
 
+#Arreglos en tamaño de Pixeles con Columnas y Filas de la Matriz de Control
+Xpx=np.array([0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 11, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 13, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 15, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,16])
+Zpx=np.array([0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 11, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 14, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 15, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,16])
+
+controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [11,0,24,0,18,0,19,0,22,0,17,0,20,0,23,0,11],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [12,0,0,0,0,0,20,0,21,0,18,0,0,0,0,0,12],
+                    [24,0,23,0,0,0,0,0,0,0,0,0,0,0,24,0,23],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,11,0,24,0,17,0,0,0,19,0,23,0,11,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,12,0,24,0,18,0,0,0,20,0,23,0,12,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [24,0,23,0,0,0,0,0,0,0,0,0,0,0,24,0,23],
+                    [11,0,0,0,0,0,19,0,22,0,17,0,0,0,0,0,11],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [12,0,24,0,17,0,20,0,21,0,18,0,19,0,23,0,12],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [19,0,21,0,0,0,21,13,0,14,21,0,0,0,21,0,17]]
+
+
+import random
+
 class Ghost:
-    
-    def __init__(self, dim, vel): #position,type,
-        #vertices del cubo
-        self.points = np.array([[-1.0,-1.0, 1.0], [1.0,-1.0, 1.0], [1.0,-1.0,-1.0], [-1.0,-1.0,-1.0],
-                                [-1.0, 1.0, 1.0], [1.0, 1.0, 1.0], [1.0, 1.0,-1.0], [-1.0, 1.0,-1.0]])
-        
-        self.DimBoard = dim
-        #Se inicializa una posicion aleatoria en el tablero
-        self.Position = np.array([random.uniform(-dim, dim), 5.0, random.uniform(-dim, dim)])
-        #Se inicializa un vector de direccion aleatorio
-        self.Direction = np.array([random.uniform(-1, 1), 5.0, random.uniform(-1, 1)])
-        #Se normaliza el vector de direccion
-        m = math.sqrt(self.Direction[0]*self.Direction[0] + self.Direction[2]*self.Direction[2])
-        self.Direction=(self.Direction/m)
-        #Se cambia la maginitud del vector direccion
-        self.Direction[0] *= vel
-        self.Direction[2] *= vel
+    def __init__(self):
+        self.Xindex = 0
+        self.Zindex = 0
+        self.position = [166, 1, 164]
+        self.actualX = Xpx[self.Xindex]
+        self.actualZ = Zpx[self.Zindex]
+        self.direction = [0, 0, 0]  # Dirección inicial
+        self.distance_counter = 25  # Contador de distancia recorrida en la dirección actual
 
-    def update(self):
-            new_x = self.Position[0] + self.Direction[0]
-            new_z = self.Position[2] + self.Direction[2]
-        
-        #detecc de que el objeto no se salga del area de navegacion
-            if (abs(new_x) < self.DimBoard):
-                self.Position[0] = new_x
-            else:
-                self.Direction[0] *= -1.0
-                self.Position[0] += self.Direction[0]
-                
-            if(abs(new_z) < self.DimBoard):
-                self.Position[2] = new_z
-            else:
-                self.Direction[2] *= -1.0
-                self.Position[2] += self.Direction[2]
-
-    def drawFaces(self):
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[0])
-        glVertex3fv(self.points[1])
-        glVertex3fv(self.points[2])
-        glVertex3fv(self.points[3])
-        glEnd()
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[4])
-        glVertex3fv(self.points[5])
-        glVertex3fv(self.points[6])
-        glVertex3fv(self.points[7])
-        glEnd()
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[0])
-        glVertex3fv(self.points[1])
-        glVertex3fv(self.points[5])
-        glVertex3fv(self.points[4])
-        glEnd()
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[1])
-        glVertex3fv(self.points[2])
-        glVertex3fv(self.points[6])
-        glVertex3fv(self.points[5])
-        glEnd()
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[2])
-        glVertex3fv(self.points[3])
-        glVertex3fv(self.points[7])
-        glVertex3fv(self.points[6])
-        glEnd()
-        glBegin(GL_QUADS)
-        glVertex3fv(self.points[3])
-        glVertex3fv(self.points[0])
-        glVertex3fv(self.points[4])
-        glVertex3fv(self.points[7])
-        glEnd()
-    
     def draw(self):
         glPushMatrix()
-        glTranslatef(self.Position[0], self.Position[1], self.Position[2])
-        glScaled(5,5,5)
-        glColor3f(1.0, 1.0, 1.0)
-        self.drawFaces()
+        glTranslatef(*self.position)
+        glColor3f(1.0, 0.0, 0.0)  # Color rojo
+        glPointSize(5.0)  # Tamaño del punto aumentado a 5.0
+        glBegin(GL_POINTS)
+        glVertex3f(0.0, 0.0, 0.0)  # Punto en la posición del fantasma
+        glEnd()
         glPopMatrix()
+
+    def update(self):
+        # Si el contador alcanza 25 píxeles, cambia la dirección
+        if self.distance_counter >= 25:
+            print(self.actualX)
+            print(self.actualZ)
+            # Direcciones posibles: DERECHA, IZQUIERDA, ABAJO, ARRIBA
+            directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]
+            # Seleccionar una dirección aleatoria
+            self.direction = random.choice(directions)
+            # Reiniciar el contador
+            self.distance_counter = 0
+
+            #Asignacion de columnas y renglones
+            if self.direction == [-1, 0, 0]:
+                print("derecha")
+                self.Xindex += 25
+                self.actualX = Xpx[self.Xindex]
+
+            elif self.direction == [1, 0, 0]:
+                print("izquierda")
+                self.Xindex -= 25
+                self.actualX = Xpx[self.Xindex]
+
+            elif self.direction == [0, 0, 1]:
+                print("arriba")
+                self.Zindex += 25
+                self.actualZ = Zpx[self.Zindex]
+
+            elif self.direction == [0, 0, -1]:
+                print("abajo")
+                self.Zindex -= 25
+                self.actualZ = Zpx[self.Zindex]
+
+            print(self.actualX)
+            print(self.actualZ)
+
+        # Actualizar la posición del fantasma según la dirección y la velocidad
+        self.position[0] += self.direction[0]
+        self.position[2] += self.direction[2]
+        self.distance_counter += 1
+
+
+
+
+
