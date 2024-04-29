@@ -101,6 +101,9 @@ def Init():
     glLoadIdentity()
     gluPerspective(FOVY, screen_width/screen_height, ZNEAR, ZFAR)
 
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
@@ -111,7 +114,7 @@ def Init():
     Texturas(filename1)
 
     global pacman
-    pacman = Pacman('PacMan.bmp')
+    pacman = Pacman(filename2)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
