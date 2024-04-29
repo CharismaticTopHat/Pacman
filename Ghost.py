@@ -79,12 +79,12 @@ class Ghost:
 
             elif self.direction == [0, 0, 1]:
                 print("arriba")
-                self.Zindex += 25
+                self.Zindex -= 25
                 self.actualZ = Zpx[self.Zindex]
 
             elif self.direction == [0, 0, -1]:
                 print("abajo")
-                self.Zindex -= 25
+                self.Zindex += 25
                 self.actualZ = Zpx[self.Zindex]
 
             print(self.actualX)
