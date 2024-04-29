@@ -53,6 +53,10 @@ CSV_FILE = os.path.join(BASE_PATH, 'mapa pacman.csv')
 textures = []
 filename1 = "PacMan_map.bmp"
 filename2 = "PacMan.bmp"
+filename3 = "PacMan_Ghost2.bmp"
+filename4 = "PacMan_Ghost3.bmp"
+filename5 = "PacMan_Ghost4.bmp"
+filename6 = "PacMan_Ghost1.bmp"
 pygame.init()
 
 def Axis():
@@ -115,8 +119,14 @@ def Init():
 
     global pacman
     pacman = Pacman(filename2)
-    global ghost
-    ghost = Ghost()
+    global ghosts, randomGhost1, randomGhost2, randomGhost3
+    ghosts = []
+    randomGhost1 = Ghost([161, 1, 162], 0, 0, filename3)
+    randomGhost2 = Ghost([161, 1, 9], 0, 400, filename4)
+    randomGhost3 = Ghost([10, 1, 9], 400, 400, filename5)
+    ghosts.append(randomGhost1)
+    ghosts.append(randomGhost2)
+    ghosts.append(randomGhost3)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -165,11 +175,9 @@ def display():
     PlanoTexturizado()
     #pc.draw()
     pacman.draw(direction)
-    ghost.draw()
-    ghost.update()
-    #for g in ghosts:
-    #    g.draw()
-    #    g.update2(pc.position)
+    for ghost in ghosts:
+        ghost.draw()
+        ghost.update()
     
 done = False
 Init()

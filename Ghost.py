@@ -35,29 +35,45 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
 import random
 
 class Ghost:
-    def __init__(self):
-        self.Xindex = 0
-        self.Zindex = 0
-        self.position = [166, 1, 167]
+    def __init__(self, position, Xindex, Zindex, image_path):
+        self.Xindex = Xindex
+        self.Zindex = Zindex
+        self.position = position
         self.actualX = Xpx[self.Xindex]
         self.actualZ = Zpx[self.Zindex]
         self.direction = [0, 0, 0]  # Dirección inicial
         self.distance_counter = 25  # Contador de distancia recorrida en la dirección actual
+        self.sprite = self.load_texture(image_path)
 
     def draw(self):
         glPushMatrix()
         glTranslatef(*self.position)
-        glColor3f(1.0, 0.0, 0.0)  # Color rojo
-        glPointSize(5.0)  # Tamaño del punto aumentado a 5.0
-        glBegin(GL_POINTS)
-        glVertex3f(0.0, 0.0, 0.0)  # Punto en la posición del fantasma
+        glBindTexture(GL_TEXTURE_2D, self.sprite)
+        glEnable(GL_TEXTURE_2D)
+        glColor3f(1.0, 1.0, 1.0)  # Usa color blanco para mostrar correctamente la textura
+
+        glBegin(GL_QUADS)
+        size = 8  # The size of the Pac-Man texture in the world space
+        glTexCoord2f(0, 0); glVertex3f(0, 0, 0)  # Inferior izquierda
+        glTexCoord2f(1, 0); glVertex3f(size, 0, 0)  # Inferior derecha
+        glTexCoord2f(1, 1); glVertex3f(size, 0, size)  # Superior derecha
+        glTexCoord2f(0, 1); glVertex3f(0, 0, size)  # Superior izquierda
         glEnd()
+
+        glDisable(GL_TEXTURE_2D)
         glPopMatrix()
 
     def update(self):
         # Si el contador alcanza 33 píxeles, cambia la dirección
         if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
+<<<<<<< HEAD
+=======
+            print(self.actualZ)
+            print(self.actualX)
+            print(valor)
+            print(self.direction)
+>>>>>>> 29ce1d1309a7ace987795bf6cdda18a457399180
 
             if valor == 11:
                 directions = [[0, 0, 1]]
@@ -153,10 +169,19 @@ class Ghost:
                 self.actualZ = Zpx[self.Zindex]
         # Actualizar la posición del fantasma según la dirección y la velocidad
         self.position[0] += self.direction[0]/3.5
-        self.position[2] += self.direction[2]/3.45
+        self.position[2] += self.direction[2]/3.46
         self.distance_counter += 1
 
+    @staticmethod
+    def load_texture(image_path):
+        image = pygame.image.load(image_path)
+        image_data = pygame.image.tostring(image, "RGBA", 1)
+        width, height = image.get_size()
 
+        texture_id = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
 
-
-
+        return texture_id
