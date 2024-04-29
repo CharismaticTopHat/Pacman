@@ -137,10 +137,10 @@ class Pacman:
         # Adjusted to draw the texture in the xz plane with y fixed for height.
         size = 8  # The size of the Pac-Man texture in the world space
         x = 0  # Fixed y coordinate since Pac-Man is on the ground
-        glTexCoord2f(0, 0); glVertex3f(x, self.initialPosition[0], self.initialPosition[2])
-        glTexCoord2f(1, 0); glVertex3f(x, self.initialPosition[0] + size, self.initialPosition[2])
-        glTexCoord2f(1, 1); glVertex3f(x, self.initialPosition[0] + size, self.initialPosition[2] + size)
-        glTexCoord2f(0, 1); glVertex3f(x, self.initialPosition[0], self.initialPosition[2] + size)
+        glTexCoord2f(0, 0); glVertex3f(x, 0, 0)
+        glTexCoord2f(1, 0); glVertex3f(x, size, 0)
+        glTexCoord2f(1, 1); glVertex3f(x, size, size)
+        glTexCoord2f(0, 1); glVertex3f(x, 0, size)
         glEnd()
         glDisable(GL_TEXTURE_2D)
         glPopMatrix()
@@ -158,4 +158,3 @@ class Pacman:
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
 
         return texture_id
-
