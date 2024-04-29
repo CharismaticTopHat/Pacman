@@ -56,6 +56,8 @@ filename1 = "PacMan_map.bmp"
 filename2 = "PacMan.bmp"
 pygame.init()
 
+pacman = Pacman('PacMan.bmp')
+
 def Axis():
     glShadeModel(GL_FLAT)
     glLineWidth(3.0)
@@ -157,24 +159,27 @@ def display():
     #Plano()
     PlanoTexturizado()
     #pc.draw()
-    Pacman.draw(Pacman.self, 'PacMan.bmp',1)
+    pacman.draw(direction)
     #for g in ghosts:
     #    g.draw()
     #    g.update2(pc.position)
     
 done = False
 Init()
+direction = 1
 while not done:
     for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.type == pygame.K_UP: 
-                    direction = 0 
-                elif event.type == pygame.K_RIGHT:
-                    direction = 1
-                elif event.type == pygame.K_DOWN:
-                    direction = 2
-                elif event.type == pygame.K_LEFT:
-                    direction = 3
+        if event.type == pygame.QUIT:
+            done = True
+        if event.type == pygame.KEYDOWN:
+            if event.type == pygame.K_UP: 
+                direction = 0 
+            elif event.type == pygame.K_RIGHT:
+                direction = 1
+            elif event.type == pygame.K_DOWN:
+                direction = 2
+            elif event.type == pygame.K_LEFT:
+                direction = 3
     
     display()
 

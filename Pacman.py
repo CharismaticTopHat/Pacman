@@ -34,11 +34,18 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
 class Pacman:
         
     def __init__(self, sprite_filepath): 
+        #Se carga el Sprite de PacMan
+        self.sprite= pygame.image.load(sprite_filepath)
         #Se declara la posición de inicio en pixeles en los ejes X y Z
         self.posX=0
         self.posY=0
         #Se inicializa una posicion 0,0 en el tablero
-        self.Position = [25,1,25]
+        self.initialPosition = [25,1,25]
+        #Velocidad en los 3 ejes
+        self.Direction=[]
+        self.Direction.append(1)
+        self.Direction.append(0)
+        self.Direction.append(1)
         #Se inicializa un vector de direccion en torno al eje X
         self.direction = 0
         #Se declaran los movimientos posibles
@@ -48,13 +55,15 @@ class Pacman:
             "Left": False,
             "Down": False
         }
-        #Se normaliza el vector de direccion
-        m = math.sqrt(self.Direction[0]*self.Direction[0] + self.Direction[2]*self.Direction[2])
-        self.Direction=(self.Direction/m)
         #Se declara la velocidad
         self.speed=1
-        #Se carga el Sprite de PacMan
-        self.sprite= pygame.image.load(sprite_filepath)
+        #Se normaliza el vector de direccion
+        m = math.sqrt(self.Direction[0]*self.Direction[0] + self.Direction[2]*self.Direction[2])
+        self.Direction[0] /= m
+        self.Direction[2] /= m
+        #Se cambia la maginitud del vector direccion
+        self.Direction[0] *= self.speed
+        self.Direction[2] *= self.speed
     
     def availableMoves(self):
         if controlMatrix[self.posX][self.posY] == 0:
@@ -107,7 +116,7 @@ class Pacman:
               
                 
     # Arriba = 0, Derecha = 1, Abajo = 2, Izquierda = 3
-    def draw(self, sprite, direction):
+    def draw(self, direction):
         rotation_angle = 0  
         if direction == 0:  
             rotation_angle = 270
@@ -117,10 +126,13 @@ class Pacman:
             rotation_angle = 90
         elif direction == 3:  
             rotation_angle = 180
-        rotated_sprite = pygame.transform.rotate(self.sprite, rotation_angle)
+        pygame.transform.rotate(self.sprite, rotation_angle)
         glPushMatrix()
-        glTranslatef(self.Position[0], self.Position[1], self.Position[2])
-        glScaled(1, 1, 1) # Cambio de escala en caso de ser necesatio
-        glBindTexture(GL_TEXTURE_2D, 1)
+        glTranslatef(self.initialPosition[0], self.initialPosition[1], self.initialPosition[2])
         glRotatef(rotation_angle, 0, 0, 1)  # Rota en torno al eje Z
+        glScaled(1, 1, 1) # Cambio de escala en caso de ser necesatio
+        glBindTexture(GL_TEXTURE_2D, 2)
+        glBegin(GL_QUADS)
+        glEnd()
+        glDisable(GL_TEXTURE_2D)
         glPopMatrix()
