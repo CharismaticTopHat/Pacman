@@ -38,7 +38,7 @@ class Ghost:
     def __init__(self):
         self.Xindex = 0
         self.Zindex = 0
-        self.position = [178, 1, 167]
+        self.position = [166, 1, 167]
         self.actualX = Xpx[self.Xindex]
         self.actualZ = Zpx[self.Zindex]
         self.direction = [0, 0, 0]  # Dirección inicial
@@ -56,7 +56,7 @@ class Ghost:
 
     def update(self):
         # Si el contador alcanza 25 píxeles, cambia la dirección
-        if self.distance_counter >= 25:
+        if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
             print(valor)
             print(self.direction)
@@ -158,8 +158,8 @@ class Ghost:
                 self.Zindex += 25
                 self.actualZ = Zpx[self.Zindex]
         # Actualizar la posición del fantasma según la dirección y la velocidad
-        self.position[0] += self.direction[0]/3
-        self.position[2] += self.direction[2]/3
+        self.position[0] += self.direction[0]/3.5
+        self.position[2] += self.direction[2]/3.45
         self.distance_counter += 1
 
 

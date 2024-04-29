@@ -22,12 +22,12 @@ ZNEAR=1.0
 ZFAR=1000.0
 #Variables para definir la posicion del observador
 #gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
-EYE_X = 90.0
+EYE_X = 92.0
 EYE_Y = 250.0
-EYE_Z = 90.0
-CENTER_X = 92.0
+EYE_Z = 92.0
+CENTER_X = 90.0
 CENTER_Y = 0.0
-CENTER_Z = 92.0
+CENTER_Z = 90.0
 UP_X=0
 UP_Y=0
 UP_Z=1
@@ -39,7 +39,7 @@ Y_MAX=500
 Z_MIN=-500
 Z_MAX=500
 #Dimension del plano
-DimBoard = 200
+DimBoard = 180
 
 #Variables para el control del observador
 theta = 0.0
@@ -115,6 +115,8 @@ def Init():
 
     global pacman
     pacman = Pacman(filename2)
+    global ghost
+    ghost = Ghost()
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -163,6 +165,8 @@ def display():
     PlanoTexturizado()
     #pc.draw()
     pacman.draw(direction)
+    ghost.draw()
+    ghost.update()
     #for g in ghosts:
     #    g.draw()
     #    g.update2(pc.position)
