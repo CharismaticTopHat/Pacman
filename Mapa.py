@@ -179,14 +179,14 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.KEYDOWN:
-            if event.type == pygame.K_UP: 
-                direction = 0 
-            elif event.type == pygame.K_RIGHT:
+            if event.key == pygame.K_UP or event.key == pygame.K_w: 
+                direction = 3 
+            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                direction = 0
+            elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 direction = 1
-            elif event.type == pygame.K_DOWN:
+            elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 direction = 2
-            elif event.type == pygame.K_LEFT:
-                direction = 3
     
     display()
 

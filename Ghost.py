@@ -55,11 +55,9 @@ class Ghost:
         glPopMatrix()
 
     def update(self):
-        # Si el contador alcanza 25 píxeles, cambia la dirección
+        # Si el contador alcanza 33 píxeles, cambia la dirección
         if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
-            print(valor)
-            print(self.direction)
 
             if valor == 11:
                 directions = [[0, 0, 1]]
@@ -139,22 +137,18 @@ class Ghost:
 
             #Asignacion de columnas y renglones
             if self.direction == [-1, 0, 0]:
-                print("derecha")
                 self.Xindex += 25
                 self.actualX = Xpx[self.Xindex]
 
             elif self.direction == [1, 0, 0]:
-                print("izquierda")
                 self.Xindex -= 25
                 self.actualX = Xpx[self.Xindex]
 
             elif self.direction == [0, 0, 1]:
-                print("arriba")
                 self.Zindex -= 25
                 self.actualZ = Zpx[self.Zindex]
 
             elif self.direction == [0, 0, -1]:
-                print("abajo")
                 self.Zindex += 25
                 self.actualZ = Zpx[self.Zindex]
         # Actualizar la posición del fantasma según la dirección y la velocidad
