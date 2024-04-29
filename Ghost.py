@@ -38,7 +38,7 @@ class Ghost:
     def __init__(self):
         self.Xindex = 0
         self.Zindex = 0
-        self.position = [166, 1, 164]
+        self.position = [178, 1, 167]
         self.actualX = Xpx[self.Xindex]
         self.actualZ = Zpx[self.Zindex]
         self.direction = [0, 0, 0]  # Dirección inicial
@@ -71,52 +71,64 @@ class Ghost:
                 directions = [[-1, 0, 0]]
             elif valor == 15:
                 directions = [[0, 0, -1], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 16:
                 directions = [[-1, 0, 0], [1, 0, 0]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 17:
                 directions = [[1, 0, 0], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 18:
                 directions = [[1, 0, 0], [0, 0, -1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 19:
                 directions = [[-1, 0, 0], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 20:
                 directions = [[-1, 0, 0], [0, 0, -1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 21:
                 directions = [[-1, 0, 0], [1, 0, 0], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 22:
                 directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 23:
                 directions = [[1, 0, 0], [0, 0, -1], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 24:
                 directions = [[-1, 0, 0], [0, 0, -1], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 25:
                 directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             elif valor == 26:
                 directions = []
-                if self.direction in directions:
-                    directions.remove(self.direction)
+                opposite_direction = [-x for x in self.direction]
+                if opposite_direction in directions:
+                    directions.remove(opposite_direction)
             else:
                 directions = [self.direction]
             # Direcciones posibles: DERECHA, IZQUIERDA, ABAJO, ARRIBA
