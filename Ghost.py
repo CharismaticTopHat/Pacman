@@ -67,13 +67,6 @@ class Ghost:
         # Si el contador alcanza 33 píxeles, cambia la dirección
         if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
-<<<<<<< HEAD
-=======
-            print(self.actualZ)
-            print(self.actualX)
-            print(valor)
-            print(self.direction)
->>>>>>> 29ce1d1309a7ace987795bf6cdda18a457399180
 
             if valor == 11:
                 directions = [[0, 0, 1]]

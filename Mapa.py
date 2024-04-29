@@ -118,7 +118,7 @@ def Init():
     Texturas(filename1)
 
     global pacman
-    pacman = Pacman(filename2)
+    pacman = Pacman([85, 1, 47], 200, 300, filename2)
     global ghosts, randomGhost1, randomGhost2, randomGhost3
     ghosts = []
     randomGhost1 = Ghost([161, 1, 162], 0, 0, filename3)
@@ -167,38 +167,41 @@ def PlanoTexturizado():
     glVertex3d(0, 0, DimBoard)
     glEnd()              
     glDisable(GL_TEXTURE_2D)
-    
-def display():
+
+
+def display(direction):
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     Axis()
-    #Plano()
+    # Plano()
     PlanoTexturizado()
-    #pc.draw()
-    pacman.draw(direction)
+    # pc.draw()
+    pacman.draw()
+    pacman.update(direction)
     for ghost in ghosts:
         ghost.draw()
         ghost.update()
-    
+
 done = False
 Init()
-direction = 0
+direction = [0, 0, 0]  # Inicializamos direction
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP or event.key == pygame.K_w: 
-                direction = 3 
-            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                direction = 0
-            elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                direction = 1
-            elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                direction = 2
-    
-    display()
+        elif event.type == pygame.KEYDOWN:
+            # Modificar la dirección según la tecla presionada
+            if event.key == pygame.K_UP:
+                direction = [0, 0, 1]  # Mover hacia arriba en el eje Z
+            elif event.key == pygame.K_DOWN:
+                direction = [0, 0, -1]  # Mover hacia abajo en el eje Z
+            elif event.key == pygame.K_LEFT:
+                direction = [1, 0, 0]  # Mover hacia la izquierda en el eje X
+            elif event.key == pygame.K_RIGHT:
+                direction = [-1, 0, 0]  # Mover hacia la derecha en el eje X
+
+    display(direction)
 
     pygame.display.flip()
-    pygame.time.wait(5)
+    pygame.time.wait(50)
 
 pygame.quit()
