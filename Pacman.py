@@ -75,7 +75,15 @@ class Pacman:
         if row != -1 and col != -1:
             self.direction = direction
             self.valor = controlMatrix[self.actualZ][self.actualX]
-            print(self.valor)
+        elif row != -1 and col == -1:
+            dir = [[-1, 0, 0], [1, 0, 0]]
+            if direction in dir:
+                self.direction = direction
+        elif row == -1 and col != -1:
+            dir = [[0, 0, -1], [0, 0, -1]]
+            if direction in dir:
+                self.direction = direction
+
 
         if self.valor == 11:
             directions = [[0, 0, 1]]
@@ -111,12 +119,11 @@ class Pacman:
             directions = []
         elif self.valor == 0:
             directions = [previus, [-x for x in previus]]
-
+        elif self.valor == 100:
+            directions = []
         else:
             directions = []
 
-
-        # Verificar si self.direction está en las direcciones permitidas
         if self.direction not in directions and self.valor != 0:
             self.direction = [0, 0, 0]
         elif self.direction not in directions and self.valor == 0 and self.cont == 0:
@@ -128,8 +135,6 @@ class Pacman:
         elif self.direction in self.temp_directions and self.valor == 0 and self.cont == 1:
             self.cont = 0
             self.temp_directions = [0, 0, 0]
-
-        print(self.temp_directions)
 
         if self.direction == [-1, 0, 0]:
             self.Xindex += 1
@@ -150,9 +155,6 @@ class Pacman:
             self.Zindex += 1
             self.actualZ = Zpx[self.Zindex]
             self.position[2] += self.direction[2] / 3.46
-
-        print(f"Row: {self.actualZ}")
-        print(f"Colum: {self.actualX}")
 
     @staticmethod
     def load_texture(image_path):
