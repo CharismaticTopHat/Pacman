@@ -42,9 +42,7 @@ class Pacman:
         self.actualX = Xpx[self.Xindex]
         self.actualZ = Zpx[self.Zindex]
         self.direction = [0, 0, 0]
-        self.distance_counter = 0
         self.sprite = self.load_texture(image_path)
-        self.control = 0
         self.valor = 0
         self.temp_directions = [0, 0, 0]
         self.cont = 0

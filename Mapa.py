@@ -202,6 +202,6 @@ while not done:
     display(direction)
 
     pygame.display.flip()
-    pygame.time.wait(20)
+    pygame.time.wait(10)
 
 pygame.quit()
