@@ -110,7 +110,7 @@ class Pacman:
         elif self.valor == 26:
             directions = []
         elif self.valor == 0:
-            directions = [previus, previus * -1]
+            directions = [previus, [-x for x in previus]]
 
         else:
             directions = []
@@ -129,6 +129,7 @@ class Pacman:
             self.cont = 0
             self.temp_directions = [0, 0, 0]
 
+        print(self.temp_directions)
 
         if self.direction == [-1, 0, 0]:
             self.Xindex += 1
