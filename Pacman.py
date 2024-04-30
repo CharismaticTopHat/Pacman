@@ -46,6 +46,8 @@ class Pacman:
         self.sprite = self.load_texture(image_path)
         self.control = 0
         self.valor = 0
+        self.temp_directions = [0, 0, 0]
+        self.cont = 0
 
     def draw(self):
         glPushMatrix()
@@ -68,6 +70,7 @@ class Pacman:
     def update(self, direction):
         row = self.actualZ
         col = self.actualX
+        previus = self.direction
 
         if row != -1 and col != -1:
             self.direction = direction
@@ -107,13 +110,25 @@ class Pacman:
         elif self.valor == 26:
             directions = []
         elif self.valor == 0:
-            directions = [[-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]
+            directions = [previus, previus * -1]
+
         else:
             directions = []
 
+
         # Verificar si self.direction está en las direcciones permitidas
-        if self.direction not in directions:
+        if self.direction not in directions and self.valor != 0:
             self.direction = [0, 0, 0]
+        elif self.direction not in directions and self.valor == 0 and self.cont == 0:
+            self.temp_directions = directions
+            self.cont += 1
+            self.direction = [0, 0, 0]
+        elif self.direction not in self.temp_directions and self.valor == 0 and self.cont == 1:
+            self.direction = [0, 0, 0]
+        elif self.direction in self.temp_directions and self.valor == 0 and self.cont == 1:
+            self.cont = 0
+            self.temp_directions = [0, 0, 0]
+
 
         if self.direction == [-1, 0, 0]:
             self.Xindex += 1
