@@ -118,7 +118,7 @@ def Init():
     Texturas(filename1)
 
     global pacman
-    pacman = Pacman([85, 1, 47], 200, 300, filename2)
+    pacman = Pacman([85, 1, 47], 264, 396, filename2)
     global ghosts, randomGhost1, randomGhost2, randomGhost3
     ghosts = []
     randomGhost1 = Ghost([161, 1, 162], 0, 0, filename3)
@@ -202,6 +202,6 @@ while not done:
     display(direction)
 
     pygame.display.flip()
-    pygame.time.wait(50)
+    pygame.time.wait(20)
 
 pygame.quit()
