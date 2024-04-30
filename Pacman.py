@@ -127,7 +127,7 @@ class Pacman:
         elif self.direction not in directions and self.valor == 0 and self.cont == 0:
             self.temp_directions = directions
             self.cont += 1
-            self.direction = [0, 0, 0]
+            self.direction = self.temp_directions[0]
         elif self.direction not in self.temp_directions and self.valor == 0 and self.cont == 1:
             self.direction = [0, 0, 0]
         elif self.direction in self.temp_directions and self.valor == 0 and self.cont == 1:
