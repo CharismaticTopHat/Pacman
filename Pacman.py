@@ -1,6 +1,12 @@
 import pygame
+from pygame.locals import *
+
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
+
+import random
+import math
 import numpy as np
 
 #Arreglos en tamaño de Pixeles con Columnas y Filas de la Matriz de Control
@@ -24,6 +30,9 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
                     [12,0,24,0,17,0,20,0,21,0,18,0,19,0,23,0,12],
                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     [19,0,21,0,0,0,21,13,0,14,21,0,0,0,21,0,17]]
+
+
+import random
 
 class Pacman:
     def __init__(self, position, Xindex, Zindex, image_path):
@@ -69,7 +78,7 @@ class Pacman:
             if direction in dir:
                 self.direction = direction
         elif row == -1 and col != -1:
-            dir = [[0, 0, -1], [0, 0, -1]]
+            dir = [[0, 0, -1], [0, 0, 1]]
             if direction in dir:
                 self.direction = direction
 
@@ -144,7 +153,8 @@ class Pacman:
             self.Zindex += 1
             self.actualZ = Zpx[self.Zindex]
             self.position[2] += self.direction[2] / 3.46
-
+    def getLocation(self):
+        return self.Xindex, self.Zindex
     @staticmethod
     def load_texture(image_path):
         image = pygame.image.load(image_path)

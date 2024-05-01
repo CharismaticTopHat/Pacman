@@ -66,6 +66,7 @@ class GhostIntelligent:
         self.matrix = np.array(pd.io.parsers.read_csv(CSV_FILE, header=None)).astype("int")
         self.pathCounter = 1
 
+
     def draw(self):
         glPushMatrix()
         glTranslatef(*self.position)
@@ -84,31 +85,28 @@ class GhostIntelligent:
         glDisable(GL_TEXTURE_2D)
         glPopMatrix()
 
-    def getNewDirection(self):
-        if Xpx[self.Xindex] != -1 and Zpx[self.Zindex] != -1:
+    def getNewDirection(self, pacmanLocationX, pacmanLocationZ):
+        self.valor = controlMatrix[self.actualZ][self.actualX]
+        if Xpx[self.Xindex] != -1 and Zpx[self.Zindex] != -1 and self.valor != 0:
             self.grid.cleanup()
             start = self.grid.node(self.Xindex, self.Zindex)
-            end = self.grid.node(528, 0)
+            end = self.grid.node(pacmanLocationX, pacmanLocationZ)
             self.path, self.runs = self.finder.find_path(start, end, self.grid)
 
-            col = self.path[self.pathCounter].x
-            row = self.path[self.pathCounter].y
-            print(row)
-            print(col)
+            if len(self.path) > 1:
+                if self.Xindex < self.path[1].x:
+                    self.direction = [-1, 0, 0]
+                elif self.Xindex > self.path[1].x:
+                    self.direction = [1, 0, 0]
 
-            print(self.Xindex, "", self.path[1].x)
-            if self.Xindex < self.path[1].x:
-                self.direction = [-1, 0, 0]
-            elif self.Xindex > self.path[1].x:
-                self.direction = [1, 0, 0]
-
-
-            if self.Zindex < self.path[1].y:
-                self.direction = [0, 0, -1]
-            elif self.Zindex > self.path[1].y:
-                self.direction = [0, 0, 1]
-
-            print(self.direction)
+                if self.Zindex < self.path[1].y:
+                    self.direction = [0, 0, -1]
+                elif self.Zindex > self.path[1].y:
+                    self.direction = [0, 0, 1]
+            else:
+                self.direction = [0, 0, 0]
+            if pacmanLocationX == self.Xindex and pacmanLocationZ == self.Zindex:
+                print("jiji perdiste")
     def update(self):
 
         if self.direction == [-1, 0, 0]:

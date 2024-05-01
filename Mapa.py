@@ -178,11 +178,12 @@ def display(direction):
     PlanoTexturizado()
     pacman.draw()
     pacman.update(direction)
+    x, z = pacman.getLocation()
     for ghostrandom in ghosts:
         ghostrandom.draw()
         ghostrandom.update()
     ghost.draw()
-    ghost.getNewDirection()
+    ghost.getNewDirection(x, z)
     ghost.update()
 
 done = False
@@ -206,6 +207,6 @@ while not done:
 
     display(direction)
     pygame.display.flip()
-    pygame.time.wait(1)
+    pygame.time.wait(20)
 
 pygame.quit()
