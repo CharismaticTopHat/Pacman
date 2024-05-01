@@ -13,6 +13,7 @@ import sys
 sys.path.append('..')
 from Ghost import Ghost
 from Pacman import Pacman
+from GhostIntelligent import GhostIntelligent
 
 screen_width = 500
 screen_height = 500
@@ -114,19 +115,21 @@ def Init():
     glClearColor(0,0,0,0)
     glEnable(GL_DEPTH_TEST)
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-    
+
     Texturas(filename1)
 
     global pacman
     pacman = Pacman([85, 1, 47], 264, 396, filename2)
     global ghosts, randomGhost1, randomGhost2, randomGhost3
     ghosts = []
-    randomGhost1 = Ghost([161, 1, 162], 0, 0, filename3)
+    randomGhost1 = Ghost([10, 1, 162], 400, 0, filename3)
     randomGhost2 = Ghost([161, 1, 9], 0, 400, filename4)
     randomGhost3 = Ghost([10, 1, 9], 400, 400, filename5)
     ghosts.append(randomGhost1)
     ghosts.append(randomGhost2)
     ghosts.append(randomGhost3)
+    global ghost
+    ghost = GhostIntelligent([161, 1, 162], 0, 0, filename2)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -139,7 +142,7 @@ def lookat():
     glLoadIdentity()
     gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
     #glutPostRedisplay()
-    
+
 def Plano():
     #Se dibuja el plano gris
     glColor3f(0.3, 0.3, 0.3)
@@ -148,14 +151,14 @@ def Plano():
     glVertex3d(-DimBoard, 0, DimBoard)
     glVertex3d(DimBoard, 0, DimBoard)
     glVertex3d(DimBoard, 0, -DimBoard)
-    glEnd()   
-    
+    glEnd()
+
 def PlanoTexturizado():
     #Activate textures
     glColor3f(1.0,1.0,1.0)
     glEnable(GL_TEXTURE_2D)
     #front face
-    glBindTexture(GL_TEXTURE_2D, textures[0])    
+    glBindTexture(GL_TEXTURE_2D, textures[0])
     glBegin(GL_QUADS)
     glTexCoord2f(0.0, 0.0)
     glVertex3d(0, 0, 0)
@@ -165,25 +168,27 @@ def PlanoTexturizado():
     glVertex3d(DimBoard, 0, DimBoard)
     glTexCoord2f(1.0, 0.0)
     glVertex3d(0, 0, DimBoard)
-    glEnd()              
+    glEnd()
     glDisable(GL_TEXTURE_2D)
 
 
 def display(direction):
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     Axis()
-    # Plano()
     PlanoTexturizado()
-    # pc.draw()
     pacman.draw()
     pacman.update(direction)
-    for ghost in ghosts:
-        ghost.draw()
-        ghost.update()
+    for ghostrandom in ghosts:
+        ghostrandom.draw()
+        ghostrandom.update()
+    ghost.draw()
+    ghost.getNewDirection()
+    ghost.update()
 
 done = False
 Init()
 direction = [0, 0, 0]  # Inicializamos direction
+
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -200,8 +205,7 @@ while not done:
                 direction = [-1, 0, 0]  # Mover hacia la derecha en el eje X
 
     display(direction)
-
     pygame.display.flip()
-    pygame.time.wait(10)
+    pygame.time.wait(1)
 
 pygame.quit()

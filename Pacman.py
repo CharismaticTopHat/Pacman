@@ -1,12 +1,6 @@
 import pygame
-from pygame.locals import *
-
 from OpenGL.GL import *
-from OpenGL.GLU import *
 from OpenGL.GLUT import *
-
-import random
-import math
 import numpy as np
 
 #Arreglos en tamaño de Pixeles con Columnas y Filas de la Matriz de Control
@@ -30,9 +24,6 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
                     [12,0,24,0,17,0,20,0,21,0,18,0,19,0,23,0,12],
                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     [19,0,21,0,0,0,21,13,0,14,21,0,0,0,21,0,17]]
-
-
-import random
 
 class Pacman:
     def __init__(self, position, Xindex, Zindex, image_path):
