@@ -83,8 +83,7 @@ class Pacman:
             dir = [[0, 0, -1], [0, 0, 1]]
             if direction in dir:
                 self.direction = direction
-            print(dir)
-        print(self.direction)
+
 
 
         if self.valor == 11:
@@ -137,6 +136,18 @@ class Pacman:
         elif self.direction in self.temp_directions and self.valor == 0 and self.cont == 1:
             self.cont = 0
             self.temp_directions = [0, 0, 0]
+        if self.direction not in directions and self.valor == 21:
+            if previus in directions:
+                self.direction = previus
+        if self.direction not in directions and self.valor == 22:
+            if previus in directions:
+                self.direction = previus
+        if self.direction not in directions and self.valor == 23:
+            if previus in directions:
+                self.direction = previus
+        if self.direction not in directions and self.valor == 24:
+            if previus in directions:
+                self.direction = previus
 
         if self.direction == [-1, 0, 0]:
             self.Xindex += 1
@@ -157,9 +168,7 @@ class Pacman:
             self.Zindex += 1
             self.actualZ = Zpx[self.Zindex]
             self.position[2] += self.direction[2] / 3.46
-        print(self.valor)
-        print(self.Xindex, "", self.Zindex)
-        print(col, "", row)
+
     def getLocation(self):
         return self.Xindex, self.Zindex
 
