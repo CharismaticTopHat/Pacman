@@ -181,7 +181,7 @@ def display(direction):
     x, z = pacman.getLocation()
     for ghostrandom in ghosts:
         ghostrandom.draw()
-        ghostrandom.update()
+        ghostrandom.update(x, z)
     ghost.draw()
     ghost.getNewDirection(x, z)
     ghost.update()

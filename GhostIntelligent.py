@@ -88,25 +88,30 @@ class GhostIntelligent:
     def getNewDirection(self, pacmanLocationX, pacmanLocationZ):
         self.valor = controlMatrix[self.actualZ][self.actualX]
         if Xpx[self.Xindex] != -1 and Zpx[self.Zindex] != -1 and self.valor != 0:
-            self.grid.cleanup()
-            start = self.grid.node(self.Xindex, self.Zindex)
-            end = self.grid.node(pacmanLocationX, pacmanLocationZ)
-            self.path, self.runs = self.finder.find_path(start, end, self.grid)
-
-            if len(self.path) > 1:
-                if self.Xindex < self.path[1].x:
-                    self.direction = [-1, 0, 0]
-                elif self.Xindex > self.path[1].x:
-                    self.direction = [1, 0, 0]
-
-                if self.Zindex < self.path[1].y:
-                    self.direction = [0, 0, -1]
-                elif self.Zindex > self.path[1].y:
-                    self.direction = [0, 0, 1]
-            else:
-                self.direction = [0, 0, 0]
             if pacmanLocationX == self.Xindex and pacmanLocationZ == self.Zindex:
+                self.direction = [0, 0, 0]
                 print("jiji perdiste")
+            else:
+                self.grid.cleanup()
+                start = self.grid.node(self.Xindex, self.Zindex)
+                end = self.grid.node(pacmanLocationX, pacmanLocationZ)
+                self.path, self.runs = self.finder.find_path(start, end, self.grid)
+
+                if len(self.path) > 1:
+                    if self.Xindex < self.path[1].x:
+                        self.direction = [-1, 0, 0]
+                    elif self.Xindex > self.path[1].x:
+                        self.direction = [1, 0, 0]
+
+                    if self.Zindex < self.path[1].y:
+                        self.direction = [0, 0, -1]
+                    elif self.Zindex > self.path[1].y:
+                        self.direction = [0, 0, 1]
+                else:
+                    self.direction = [0, 0, 0]
+
+
+
     def update(self):
 
         if self.direction == [-1, 0, 0]:

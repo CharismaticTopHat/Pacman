@@ -54,7 +54,7 @@ class Ghost:
         glDisable(GL_TEXTURE_2D)
         glPopMatrix()
 
-    def update(self):
+    def update(self, pacmanLocationX, pacmanLocationZ):
         # Si el contador alcanza 33 píxeles, cambia la dirección
         if self.distance_counter >= 32.5:
             valor = controlMatrix[self.actualZ][self.actualX]
@@ -155,6 +155,7 @@ class Ghost:
         self.position[0] += self.direction[0]/3.5
         self.position[2] += self.direction[2]/3.46
         self.distance_counter += 1
+
 
     @staticmethod
     def load_texture(image_path):
