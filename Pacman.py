@@ -74,13 +74,17 @@ class Pacman:
             self.direction = direction
             self.valor = controlMatrix[self.actualZ][self.actualX]
         elif row != -1 and col == -1:
+            self.valor = 0
             dir = [[-1, 0, 0], [1, 0, 0]]
             if direction in dir:
                 self.direction = direction
         elif row == -1 and col != -1:
+            self.valor = 0
             dir = [[0, 0, -1], [0, 0, 1]]
             if direction in dir:
                 self.direction = direction
+            print(dir)
+        print(self.direction)
 
 
         if self.valor == 11:
@@ -153,8 +157,12 @@ class Pacman:
             self.Zindex += 1
             self.actualZ = Zpx[self.Zindex]
             self.position[2] += self.direction[2] / 3.46
+        print(self.valor)
+        print(self.Xindex, "", self.Zindex)
+        print(col, "", row)
     def getLocation(self):
         return self.Xindex, self.Zindex
+
     @staticmethod
     def load_texture(image_path):
         image = pygame.image.load(image_path)

@@ -129,7 +129,7 @@ def Init():
     ghosts.append(randomGhost2)
     ghosts.append(randomGhost3)
     global ghost
-    ghost = GhostIntelligent([161, 1, 162], 0, 0, filename2)
+    ghost = GhostIntelligent([161, 1, 162], 0, 0, filename6)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)
@@ -207,6 +207,6 @@ while not done:
 
     display(direction)
     pygame.display.flip()
-    pygame.time.wait(20)
+    pygame.time.wait(10)
 
 pygame.quit()
