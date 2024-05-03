@@ -119,17 +119,17 @@ def Init():
     Texturas(filename1)
 
     global pacman
-    pacman = Pacman([85, 1, 47], 264, 396, filename2)
+    pacman = Pacman([90, 1, 51], 264, 396, filename2)
     global ghosts, randomGhost1, randomGhost2, randomGhost3
     ghosts = []
-    randomGhost1 = Ghost([10, 1, 162], 400, 0, filename3)
-    randomGhost2 = Ghost([161, 1, 9], 0, 400, filename4)
-    randomGhost3 = Ghost([10, 1, 9], 400, 400, filename5)
+    randomGhost1 = Ghost([10, 2, 162], 400, 0, filename3)
+    randomGhost2 = Ghost([161, 2, 9], 0, 400, filename4)
+    randomGhost3 = Ghost([10, 2, 9], 400, 400, filename5)
     ghosts.append(randomGhost1)
     ghosts.append(randomGhost2)
     ghosts.append(randomGhost3)
     global ghost
-    ghost = GhostIntelligent([161, 1, 162], 0, 0, filename6)
+    ghost = GhostIntelligent([161, 2, 162], 0, 0, filename6)
 
 
 #Se mueve al observador circularmente al rededor del plano XZ a una altura fija (EYE_Y)

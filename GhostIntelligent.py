@@ -1,21 +1,14 @@
 import pygame
-from pygame.locals import *
 
 from OpenGL.GL import *
-from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-import random
-import math
-import numpy as np
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 
 import os
 import numpy as np
 import pandas as pd
-
-import random
 
 
 
@@ -113,7 +106,6 @@ class GhostIntelligent:
 
 
     def update(self):
-
         if self.direction == [-1, 0, 0]:
             self.Xindex += 1
             self.actualX = Xpx[self.Xindex]

@@ -1,12 +1,8 @@
 import pygame
-from pygame.locals import *
 
 from OpenGL.GL import *
-from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-import random
-import math
 import numpy as np
 
 #Arreglos en tamaño de Pixeles con Columnas y Filas de la Matriz de Control
@@ -31,9 +27,6 @@ controlMatrix = [[20,0,22,0,0,0,22,13,0,14,22,0,0,0,22,0,18],
                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     [19,0,21,0,0,0,21,13,0,14,21,0,0,0,21,0,17]]
 
-
-import random
-
 class Pacman:
     def __init__(self, position, Xindex, Zindex, image_path):
         self.Xindex = Xindex
@@ -46,20 +39,42 @@ class Pacman:
         self.valor = 0
         self.temp_directions = [0, 0, 0]
         self.cont = 0
+        self.rotation_angle = 0  # Inicializa el ángulo de rotación
+        self.flip_horizontal = 1  # No voltear horizontalmente por defecto
+
 
     def draw(self):
         glPushMatrix()
         glTranslatef(*self.position)
+
+        # Configura la rotación y el volteo basado en la dirección actual
+        if self.direction == [1, 0, 0]:  # Derecha
+            self.rotation_angle = 0
+            self.flip_horizontal = 1  # No voltear
+        elif self.direction == [-1, 0, 0]:  # Izquierda
+            self.rotation_angle = 0
+            self.flip_horizontal = -1  # Voltear horizontalmente
+        elif self.direction == [0, 0, 1]:  # Arriba
+            self.rotation_angle = -90
+            self.flip_horizontal = 1  # No voltear
+        elif self.direction == [0, 0, -1]:  # Abajo
+            self.rotation_angle = 90
+            self.flip_horizontal = 1  # No voltear
+
+        # Aplica la rotación y el volteo
+        glRotatef(self.rotation_angle, 0, 1, 0)  # Rota alrededor del eje Y
+        glScalef(self.flip_horizontal, 1, 1)  # Volteo horizontal si es necesario
+
         glBindTexture(GL_TEXTURE_2D, self.sprite)
         glEnable(GL_TEXTURE_2D)
         glColor3f(1.0, 1.0, 1.0)  # Usa color blanco para mostrar correctamente la textura
 
         glBegin(GL_QUADS)
-        size = 8  # The size of the Pac-Man texture in the world space
-        glTexCoord2f(0, 0); glVertex3f(0, 0, 0)  # Inferior izquierda
-        glTexCoord2f(1, 0); glVertex3f(size, 0, 0)  # Inferior derecha
-        glTexCoord2f(1, 1); glVertex3f(size, 0, size)  # Superior derecha
-        glTexCoord2f(0, 1); glVertex3f(0, 0, size)  # Superior izquierda
+        size = 8  # Tamaño del sprite de Pac-Man en el espacio del mundo
+        glTexCoord2f(0, 0); glVertex3f(-size/2, 0, -size/2)  # Inferior izquierda
+        glTexCoord2f(1, 0); glVertex3f(size/2, 0, -size/2)  # Inferior derecha
+        glTexCoord2f(1, 1); glVertex3f(size/2, 0, size/2)  # Superior derecha
+        glTexCoord2f(0, 1); glVertex3f(-size/2, 0, size/2)  # Superior izquierda
         glEnd()
 
         glDisable(GL_TEXTURE_2D)
